@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\danny\\Desktop\\Tarea 2\\Tarea 2\\Tarea 2.csproj": {}
+    "C:\\Users\\danny\\Desktop\\Tarea-2\\Tarea 2\\Tarea 2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\danny\\Desktop\\Tarea 2\\Tarea 2\\Tarea 2.csproj": {
+    "C:\\Users\\danny\\Desktop\\Tarea-2\\Tarea 2\\Tarea 2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\danny\\Desktop\\Tarea 2\\Tarea 2\\Tarea 2.csproj",
+        "projectUniqueName": "C:\\Users\\danny\\Desktop\\Tarea-2\\Tarea 2\\Tarea 2.csproj",
         "projectName": "Tarea 2",
-        "projectPath": "C:\\Users\\danny\\Desktop\\Tarea 2\\Tarea 2\\Tarea 2.csproj",
+        "projectPath": "C:\\Users\\danny\\Desktop\\Tarea-2\\Tarea 2\\Tarea 2.csproj",
         "packagesPath": "C:\\Users\\danny\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\danny\\Desktop\\Tarea 2\\Tarea 2\\obj\\",
+        "outputPath": "C:\\Users\\danny\\Desktop\\Tarea-2\\Tarea 2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\danny\\AppData\\Roaming\\NuGet\\NuGet.Config",

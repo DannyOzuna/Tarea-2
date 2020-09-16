@@ -6,7 +6,12 @@ namespace Tarea_2
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ContenedorPrincipal cp = new ContenedorPrincipal();
+            Console.Clear();
+            Console.WriteLine("*------Bienvenido al Sistema Bancario------*");
+            Console.WriteLine("\n\n\nPresione una tecla...");
+            Console.ReadKey();
+            cp.MenuPrincipal();
         }
     }
 }
