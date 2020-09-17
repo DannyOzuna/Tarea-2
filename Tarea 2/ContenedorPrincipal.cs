@@ -352,17 +352,17 @@ namespace Tarea_2
                         } while (opcion <= 0);
                         if (opcion > 0 && opcion <= 999)
                         {
-                            clientes = Creador.creadorCliente(999);
+                            clientes = Creador.creadorCliente(Creador.ahorrantes);
                             clientes.Inversion = opcion;
                         }
                         else if (opcion > 999 && opcion <= 1999)
                         {
-                            clientes = Creador.creadorCliente(1999);
+                            clientes = Creador.creadorCliente(Creador.inversionista);
                             clientes.Inversion = opcion;
                         }
                         else
                         {
-                            clientes = Creador.creadorCliente(2000);
+                            clientes = Creador.creadorCliente(Creador.accionistas);
                             clientes.Inversion = opcion;
                         }
                         Console.Clear();
