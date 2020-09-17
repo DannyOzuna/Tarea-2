@@ -13,7 +13,7 @@ namespace Tarea_2
         public int NCuenta { get => nCuenta; set => nCuenta = value; }
         public double Monto { get => monto; set => monto = value; }
         public double Inversion { get => inversion; set => inversion = value; }
-        public double Comision { get => comision; set => comision =  value; }
+        public double Comision { get => comision; set => comision = value; }
         public abstract double calculoComision();
     }
 }

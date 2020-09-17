@@ -10,14 +10,10 @@ namespace Tarea_2
         List<TiempoCompleto> EmpleadoTiempoC = new List<TiempoCompleto>();
         List<MedioTiempo> EmpleadoMedioT = new List<MedioTiempo>();
         List<Temporero> EmpleadoTemp = new List<Temporero>();
-        List<Ahorrantes> ListadoAhorrante = new List<Ahorrantes>();
-        List<Inversionista> ListadoInversionista = new List<Inversionista>();
-        List<Accionistas> ListadoAccinista = new List<Accionistas>();
+        List<Clientes> ListadoCliente = new List<Clientes>();
         //Referencias de instancia de clases
         TiempoCompleto empleadoTiempoC;
         MedioTiempo empleadoMedioT;
-        Ahorrantes ahorrantes;
-        Accionistas accionistas;
         //Atributos
         private int opcion;
         private string status;
@@ -340,12 +336,40 @@ namespace Tarea_2
                 switch (opcion)
                 {
                     case 1:
-                        status = "Add";
                         MenuCliente();
                         break;
                     case 2:
-                        status = "Show";
-                        MenuCliente();
+                        if (ListadoCliente.Count == 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("*------Sistema Bancario------*\n");
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.WriteLine("No hay Cliente registrado!...");
+                            Console.WriteLine("Presiona una Tecla para volver....");
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.ReadKey();
+                            MenuRegistroCliente();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("*------Sistema Bancario------*\n");
+                            foreach (Clientes i in ListadoCliente)
+                            {
+                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                                Console.WriteLine($"Nombre: {i.Nombre}");
+                                Console.WriteLine($"Numero de Cuenta: {i.NCuenta}");
+                                Console.WriteLine($"Monto: {i.Monto}");
+                                Console.WriteLine($"Comision: {i.Comision}");
+                                Console.WriteLine($"Inversion: {i.Inversion}");
+                                Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
+                            }
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.WriteLine("Presiona una Tecla para volver....");
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.ReadKey();
+                            MenuRegistroCliente();
+                        }
                         break;
                     case 3:
                         MenuPrincipal();
@@ -376,136 +400,66 @@ namespace Tarea_2
                 {
                     //Ahorrante
                     case 1:
-                        switch (status)
-                        {
-                            case "Add":
-                                Console.Clear();
-                                Console.WriteLine("*------Sistema Bancario------*\n");
-                                ahorrantes = new Ahorrantes("Alejandro Ozuna", 456978, 100);
-                                Console.Write("Nombre: ");
-                                ahorrantes.Nombre = Console.ReadLine();
-                                Console.Write("Numero de Cuenta: ");
-                                ahorrantes.NCuenta = int.Parse(Console.ReadLine());
-                                Console.Write("Monton: ");
-                                ahorrantes.Monto = int.Parse(Console.ReadLine());
-                                ahorrantes.calculoComision();
-                                ListadoAhorrante.Add(ahorrantes);
-                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                Console.WriteLine("Se ha registrado correctamente!...");
-                                Console.WriteLine("Presione una tecla para volver....");
-                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                Console.ReadKey();
-                                MenuRegistroCliente();
-                                break;
-                            case "Show":
-                                if (ListadoAhorrante.Count == 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("No hay Cliente Ahorrante Registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistroCliente();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    foreach (Ahorrantes i in ListadoAhorrante)
-                                    {
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                        Console.WriteLine($"Nombre: {i.Nombre}");
-                                        Console.WriteLine($"Numero de Cuenta: {i.NCuenta}");
-                                        Console.WriteLine($"Monto: {i.Monto}");
-                                        Console.WriteLine($"Comision: {i.Comision}");
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
-                                    }
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistroCliente();
-                                }
-                                break;
-                        }
+                        Console.Clear();
+                        Console.WriteLine("*------Sistema Bancario------*\n");
+                        var ahorrantes = Creador.creadorCliente(Creador.ahorrantes);
+                        Console.Write("Nombre: ");
+                        ahorrantes.Nombre = Console.ReadLine();
+                        Console.Write("Numero de Cuenta: ");
+                        ahorrantes.NCuenta = int.Parse(Console.ReadLine());
+                        Console.Write("Monton: ");
+                        ahorrantes.Monto = int.Parse(Console.ReadLine());
+                        ahorrantes.calculoComision();
+                        ListadoCliente.Add(ahorrantes);
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.WriteLine("Se ha registrado correctamente!...");
+                        Console.WriteLine("Presione una tecla para volver....");
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.ReadKey();
+                        MenuRegistroCliente();
                         break;
                     //Invesionista
                     case 2:
-                        switch (status)
-                        {
-                            case "Add":
-                                if (ListadoInversionista.Count != 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Ya existe un cliente Inversionista registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistroCliente();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Inversionista inversionista = Inversionista.GetInversionista("Raquelina", 456878, 500, 100);
-                                    Console.Write("Nombre: ");
-                                    inversionista.Nombre = Console.ReadLine();
-                                    Console.Write("Numero de Cuenta: ");
-                                    inversionista.NCuenta = int.Parse(Console.ReadLine());
-                                    Console.Write("Monton: ");
-                                    inversionista.Monto = double.Parse(Console.ReadLine());
-                                    Console.Write("Inversion: ");
-                                    inversionista.Inversion = double.Parse(Console.ReadLine());
-                                    inversionista.calculoComision();
-                                    ListadoInversionista.Add(inversionista);
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Se ha registrado correctamente!...");
-                                    Console.WriteLine("Presione una tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistroCliente();
-                                }
-                                break;
-                            case "Show":
-                                if (ListadoInversionista.Count == 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("No hay Inversionista Registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistroCliente();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    foreach (Inversionista i in ListadoInversionista)
-                                    {
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                        Console.WriteLine($"Nombre: {i.Nombre}");
-                                        Console.WriteLine($"Numero de Cuenta: {i.NCuenta}");
-                                        Console.WriteLine($"Monto: {i.Monto}");
-                                        Console.WriteLine($"Comision: {i.Comision}");
-                                        Console.WriteLine($"Inversion: {i.Inversion}");
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
-                                    }
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistroCliente();
-                                }
-                                break;
-                        }
+                        Console.Clear();
+                        Console.WriteLine("*------Sistema Bancario------*\n");
+                        var inversionista = Creador.creadorCliente(Creador.inversionista);
+                        Console.Write("Nombre: ");
+                        inversionista.Nombre = Console.ReadLine();
+                        Console.Write("Numero de Cuenta: ");
+                        inversionista.NCuenta = int.Parse(Console.ReadLine());
+                        Console.Write("Monton: ");
+                        inversionista.Monto = double.Parse(Console.ReadLine());
+                        Console.Write("Inversion: ");
+                        inversionista.Inversion = double.Parse(Console.ReadLine());
+                        inversionista.calculoComision();
+                        ListadoCliente.Add(inversionista);
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.WriteLine("Se ha registrado correctamente!...");
+                        Console.WriteLine("Presione una tecla para volver....");
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.ReadKey();
+                        MenuRegistroCliente();
                         break;
                     case 3:
+                        Console.Clear();
+                        Console.WriteLine("*------Sistema Bancario------*\n");
+                        var accionista = Creador.creadorCliente(Creador.accionista);
+                        Console.Write("Nombre: ");
+                        accionista.Nombre = Console.ReadLine();
+                        Console.Write("Numero de Cuenta: ");
+                        accionista.NCuenta = int.Parse(Console.ReadLine());
+                        Console.Write("Monton: ");
+                        accionista.Monto = double.Parse(Console.ReadLine());
+                        Console.Write("Inversion: ");
+                        accionista.Inversion = double.Parse(Console.ReadLine());
+                        accionista.calculoComision();
+                        ListadoCliente.Add(accionista);
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.WriteLine("Se ha registrado correctamente!...");
+                        Console.WriteLine("Presione una tecla para volver....");
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.ReadKey();
+                        MenuRegistroCliente();
                         break;
                     case 4:
                         MenuRegistroCliente();
