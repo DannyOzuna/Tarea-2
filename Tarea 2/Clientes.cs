@@ -15,5 +15,6 @@ namespace Tarea_2
         public double Inversion { get => inversion; set => inversion = value; }
         public double Comision { get => comision; set => comision = value; }
         public abstract double calculoComision();
+        public abstract string tipoCliente();
     }
 }

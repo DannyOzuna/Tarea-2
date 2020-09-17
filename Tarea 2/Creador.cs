@@ -6,17 +6,16 @@ namespace Tarea_2
 {
     class Creador
     {
-        public const int accionista = 1, ahorrantes = 2, inversionista = 3;
         public static Clientes creadorCliente(int tipo)
         {
             switch (tipo)
             {
-                case accionista:
-                    return new Accionistas();
-                case ahorrantes:
+                case 999:
                     return new Ahorrantes();
-                case inversionista:
+                case 1999:
                     return new Inversionista();
+                case 2000:
+                    return new Accionistas();
                 default:
                     return null;
             }

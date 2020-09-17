@@ -11,5 +11,9 @@ namespace Tarea_2
             Comision = Monto * 0.40;
             return Comision;
         }
+        public override string tipoCliente()
+        {
+            return "Tipo de Cliente Accionista";
+        }
     }
 }
