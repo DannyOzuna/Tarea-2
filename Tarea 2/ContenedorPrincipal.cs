@@ -12,10 +12,12 @@ namespace Tarea_2
         List<Temporero> EmpleadoTemp = new List<Temporero>();
         List<Ahorrantes> ListadoAhorrante = new List<Ahorrantes>();
         List<Inversionista> ListadoInversionista = new List<Inversionista>();
+        List<Accionistas> ListadoAccinista = new List<Accionistas>();
         //Referencias de instancia de clases
         TiempoCompleto empleadoTiempoC;
         MedioTiempo empleadoMedioT;
         Ahorrantes ahorrantes;
+        Accionistas accionistas;
         //Atributos
         private int opcion;
         private string status;
@@ -357,7 +359,7 @@ namespace Tarea_2
         public void MenuCliente()
         {
             opcion = 0;
-            while (opcion < 1 || opcion > 3)
+            while (opcion < 1 || opcion > 4)
             {
                 Console.Clear();
                 Console.WriteLine("*------Sistema Bancario------*");
@@ -365,7 +367,8 @@ namespace Tarea_2
                 Console.WriteLine("|*-----------------------*-*-----------------------*|");
                 Console.WriteLine("1. Ahorrante");
                 Console.WriteLine("2. Inversionista");
-                Console.WriteLine("3. Volver al Atras...");
+                Console.WriteLine("3. Accionista");
+                Console.WriteLine("4. Volver al Atras...");
                 Console.WriteLine("|*-----------------------*-*-----------------------*|");
                 Console.Write("Opcion: ");
                 opcion = int.Parse(Console.ReadLine());
@@ -503,6 +506,8 @@ namespace Tarea_2
                         }
                         break;
                     case 3:
+                        break;
+                    case 4:
                         MenuRegistroCliente();
                         break;
                 }
