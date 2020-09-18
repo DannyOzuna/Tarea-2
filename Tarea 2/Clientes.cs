@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tarea_2
 {
-    abstract class Clientes: IClientes
+    abstract class Clientes
     {
         private string nombre;
         private int nCuenta;

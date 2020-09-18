@@ -7,17 +7,13 @@ namespace Tarea_2
     class ContenedorPrincipal
     {
         //Listado de empleados
-        List<TiempoCompleto> EmpleadoTiempoC = new List<TiempoCompleto>();
-        List<MedioTiempo> EmpleadoMedioT = new List<MedioTiempo>();
-        List<Temporero> EmpleadoTemp = new List<Temporero>();
+        List<Empleado> ListadoEmpleado = new List<Empleado>();
         List<Clientes> ListadoCliente = new List<Clientes>();
         //Referencias de instancia de clases
-        TiempoCompleto empleadoTiempoC;
-        MedioTiempo empleadoMedioT;
+        Empleado empleado;
         Clientes clientes;
         //Atributos
         private int opcion;
-        private string status;
         //Requerimiento A
         public void MenuPrincipal()
         {
@@ -67,251 +63,97 @@ namespace Tarea_2
                 switch (opcion)
                 {
                     case 1:
-                        status = "Add";
-                        MenuEmpleado();
+                        opcion = 0;
+                        Console.Clear();
+                        Console.WriteLine("*------Sistema Bancario------*\n");
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.WriteLine("Trabaja por 8 horas, Tiempo Completo");
+                        Console.WriteLine("Trabaja por 4 horas, Medio Tiempo");
+                        Console.WriteLine("Trabaja por 6 horas, Temporero");
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.Write("Horas Empleado: ");
+                        opcion = int.Parse(Console.ReadLine());
+                        switch (opcion)
+                        {
+                            case 8:
+                                empleado = CreadorEmpleado.creadorEmpleado(CreadorEmpleado.tiempoCompleto);
+                                empleado.HoraTrabajo = opcion;
+                                break;
+                            case 4:
+                                empleado = CreadorEmpleado.creadorEmpleado(CreadorEmpleado.medioTiempo);
+                                empleado.HoraTrabajo = opcion;
+                                break;
+                            case 6:
+                                empleado = CreadorEmpleado.creadorEmpleado(CreadorEmpleado.temporero);
+                                empleado.HoraTrabajo = opcion;
+                                break;
+                            default:
+                                Console.Clear();
+                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                                Console.WriteLine("Este horario de trabajo no existe");
+                                Console.WriteLine("Presione un tecla para volver!...");
+                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                                Console.ReadKey();
+                                MenuRegistro();
+                                break;
+                        }
+                        Console.Clear();
+                        Console.WriteLine("*------Sistema Bancario------*\n");
+                        Console.Write("Nombre: ");
+                        empleado.Nombre = Console.ReadLine();
+                        Console.Write("Numero Cuenta: ");
+                        empleado.NumeroCuenta = int.Parse(Console.ReadLine());
+                        Console.Write("Precio por Hora: ");
+                        empleado.PrecioHora = double.Parse(Console.ReadLine());
+                        empleado.cobrar();
+                        ListadoEmpleado.Add(empleado);
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.WriteLine("Se ha registrado correctamente!...");
+                        Console.WriteLine("Presione una tecla para volver....");
+                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                        Console.ReadKey();
+                        MenuRegistro();
                         break;
                     case 2:
-                        status = "Show";
-                        MenuEmpleado();
+                        if (ListadoEmpleado.Count == 0)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("*------Sistema Bancario------*\n");
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.WriteLine("No hay Empleado de Tiempo Completo Registrado!...");
+                            Console.WriteLine("Presiona una Tecla para volver....");
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.ReadKey();
+                            MenuRegistro();
+                        }
+                        else
+                        {
+                            Console.Clear();
+                            Console.WriteLine("*------Sistema Bancario------*\n");
+                            foreach (Empleado i in ListadoEmpleado)
+                            {
+                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                                Console.WriteLine($"Tipo Empleado: {i.tipoEmpleado()}");
+                                Console.WriteLine($"Nombre: {i.Nombre}");
+                                Console.WriteLine($"Numero de Cuenta: {i.NumeroCuenta}");
+                                Console.WriteLine($"Horas de Trabajo: {i.HoraTrabajo}");
+                                Console.WriteLine($"Precio Por Hora: {i.PrecioHora}");
+                                Console.WriteLine($"Metodo de Pago: {i.metodoPago()}");
+                                Console.WriteLine($"Salario: {i.Salario}");
+                                Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
+                            }
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.WriteLine("Presiona una Tecla para volver....");
+                            Console.WriteLine("|*-----------------------*-*-----------------------*|");
+                            Console.ReadKey();
+                            MenuRegistro();
+                        }
                         break;
                     case 3:
                         Console.Clear();
                         MenuPrincipal();
                         break;
                     case 4:
-                        Environment.Exit(0);
-                        break;
-                }
-            }
-        }
-        public void MenuEmpleado()
-        {
-            opcion = 0;
-            while (opcion < 1 || opcion > 5)
-            {
-                Console.Clear();
-                Console.WriteLine("*------Sistema Bancario------*");
-                Console.WriteLine("\nMenu Registro Empleado");
-                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                Console.WriteLine("1. Tiempo Completo");
-                Console.WriteLine("2. Medio Tiempo");
-                Console.WriteLine("3. Temporero");
-                Console.WriteLine("4. Volver Menu Registro");
-                Console.WriteLine("5. Salir");
-                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                Console.Write("Opcion: ");
-                opcion = int.Parse(Console.ReadLine());
-                switch (opcion)
-                {
-                    //Tiempo Completo
-                    case 1:
-                        switch (status)
-                        {
-                            case "Add":
-                                Console.Clear();
-                                Console.WriteLine("*------Sistema Bancario------*\n");
-                                empleadoTiempoC = new TiempoCompleto("Tiempo Completo", "Lisandro Ozuna", 46846, 100, "Este empleado cobra por cuenta bancaria", 8);
-                                empleadoTiempoC.TipoEmpleado = "Tiempo Completo";
-                                empleadoTiempoC.MetodoPago = "Este empleado cobra por cuenta bancaria";
-                                empleadoTiempoC.HoraTrabajo = 8;
-                                Console.Write("Nombre: ");
-                                empleadoTiempoC.Nombre = Console.ReadLine();
-                                Console.Write("Numero Cuenta: ");
-                                empleadoTiempoC.NumeroCuenta = int.Parse(Console.ReadLine());
-                                Console.Write("Precio por Hora: ");
-                                empleadoTiempoC.PrecioHora = double.Parse(Console.ReadLine());
-                                empleadoTiempoC.cobrar();
-                                EmpleadoTiempoC.Add(empleadoTiempoC);
-                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                Console.WriteLine("Se ha registrado correctamente!...");
-                                Console.WriteLine("Presione una tecla para volver....");
-                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                Console.ReadKey();
-                                MenuRegistro();
-                                break;
-                            case "Show":
-                                if (EmpleadoTiempoC.Count == 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("No hay Empleado de Tiempo Completo Registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    foreach (TiempoCompleto i in EmpleadoTiempoC)
-                                    {
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                        Console.WriteLine($"Tipo Empleado: {i.TipoEmpleado}");
-                                        Console.WriteLine($"Nombre: {i.Nombre}");
-                                        Console.WriteLine($"Numero de Cuenta: {i.NumeroCuenta}");
-                                        Console.WriteLine($"Horas de Trabajo: {i.HoraTrabajo}");
-                                        Console.WriteLine($"Precio Por Hora: {i.PrecioHora}");
-                                        Console.WriteLine($"Metodo de Pago: {i.MetodoPago}");
-                                        Console.WriteLine($"Salario: {i.Salario}");
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
-                                    }
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                break;
-
-                        }
-                        break;
-                    //Medio Tiempo
-                    case 2:
-                        switch (status)
-                        {
-                            case "Add":
-                                Console.Clear();
-                                Console.WriteLine("*------Sistema Bancario------*\n");
-                                empleadoMedioT = new MedioTiempo("Medio Tiempo", "Lisandro Ozuna", 46846, 100, "Este empleado cobra por cuenta bancaria", 4);
-                                empleadoMedioT.TipoEmpleado = "Medio Tiempo";
-                                empleadoMedioT.MetodoPago = "Este empleado cobra por cuenta bancaria";
-                                empleadoMedioT.HoraTrabajo = 4;
-                                Console.Write("Nombre: ");
-                                empleadoMedioT.Nombre = Console.ReadLine();
-                                Console.Write("Numero Cuenta: ");
-                                empleadoMedioT.NumeroCuenta = int.Parse(Console.ReadLine());
-                                Console.Write("Precio por Hora: ");
-                                empleadoMedioT.PrecioHora = double.Parse(Console.ReadLine());
-                                empleadoMedioT.cobrar();
-                                EmpleadoMedioT.Add(empleadoMedioT);
-                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                Console.WriteLine("Se ha registrado correctamente!...");
-                                Console.WriteLine("Presione una tecla para volver....");
-                                Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                Console.ReadKey();
-                                MenuRegistro();
-                                break;
-                            case "Show":
-                                if (EmpleadoMedioT.Count == 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("No hay Empleado de Medio Tiempo Registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    foreach (MedioTiempo i in EmpleadoMedioT)
-                                    {
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                        Console.WriteLine($"Tipo Empleado: {i.TipoEmpleado}");
-                                        Console.WriteLine($"Nombre: {i.Nombre}");
-                                        Console.WriteLine($"Numero de Cuenta: {i.NumeroCuenta}");
-                                        Console.WriteLine($"Horas de Trabajo: {i.HoraTrabajo}");
-                                        Console.WriteLine($"Precio Por Hora: {i.PrecioHora}");
-                                        Console.WriteLine($"Metodo de Pago: {i.MetodoPago}");
-                                        Console.WriteLine($"Salario: {i.Salario}");
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
-                                    }
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                break;
-                        }
-                        break;
-                    //Temporero
-                    case 3:
-                        switch (status)
-                        {
-                            case "Add":
-                                if (EmpleadoTemp.Count != 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Ya existe un empleado Temporero registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Temporero temporero = Temporero.GetTemporero("Temporero", "Lisandro Ozuna", 46846, 100, "Este empleado cobra por cheque", 9);
-                                    temporero.TipoEmpleado = "Temporero";
-                                    temporero.MetodoPago = "Este empleado cobra por cheque";
-                                    temporero.HoraTrabajo = 9;
-                                    Console.Write("Nombre: ");
-                                    temporero.Nombre = Console.ReadLine();
-                                    Console.Write("Numero Cuenta: ");
-                                    temporero.NumeroCuenta = int.Parse(Console.ReadLine());
-                                    Console.Write("Precio por Hora: ");
-                                    temporero.PrecioHora = double.Parse(Console.ReadLine());
-                                    temporero.cobrar();
-                                    EmpleadoTemp.Add(temporero);
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Se ha registrado correctamente!...");
-                                    Console.WriteLine("Presione una tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                break;
-                            case "Show":
-                                if (EmpleadoTemp.Count == 0)
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("No hay Empleado de Medio Tiempo Registrado!...");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                else
-                                {
-                                    Console.Clear();
-                                    Console.WriteLine("*------Sistema Bancario------*\n");
-                                    foreach (Temporero i in EmpleadoTemp)
-                                    {
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                        Console.WriteLine($"Tipo Empleado: {i.TipoEmpleado}");
-                                        Console.WriteLine($"Nombre: {i.Nombre}");
-                                        Console.WriteLine($"Numero de Cuenta: {i.NumeroCuenta}");
-                                        Console.WriteLine($"Horas de Trabajo: {i.HoraTrabajo}");
-                                        Console.WriteLine($"Precio Por Hora: {i.PrecioHora}");
-                                        Console.WriteLine($"Metodo de Pago: {i.MetodoPago}");
-                                        Console.WriteLine($"Salario: {i.Salario}");
-                                        Console.WriteLine("|*-----------------------*-*-----------------------*|\n");
-                                    }
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.WriteLine("Presiona una Tecla para volver....");
-                                    Console.WriteLine("|*-----------------------*-*-----------------------*|");
-                                    Console.ReadKey();
-                                    MenuRegistro();
-                                }
-                                break;
-                        }
-                        break;
-                    case 4:
-                        Console.Clear();
-                        MenuRegistro();
-                        break;
-                    case 5:
                         Environment.Exit(0);
                         break;
                 }
